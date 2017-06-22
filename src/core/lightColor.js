@@ -1,29 +1,41 @@
 const minutesToMillis = require('./minutesToMillis');
 
 module.exports = function lightColorStartingWith(initialColor) {
-  return {
-    currentTick: {
-      color: initialColor,
-      timeout: initialColor === 'YELLOW' ? 30000 : 300000
-    },
-    tick: function() {
-      if (this.currentTick.color === 'YELLOW') {
-        this.currentTick = {
-          color: 'RED',
-          timeout: minutesToMillis(5)
-        };
-      } else if (this.currentTick.color === 'GREEN') {
-        this.currentTick = {
+  const tickFor = (color) => {
+    switch(color) {
+      case 'YELLOW':
+        return {
           color: 'YELLOW',
           timeout: minutesToMillis(.5)
         };
-      } else if (this.currentTick.color === 'RED') {
-        this.currentTick = {
+      case 'GREEN':
+        return {
           color: 'GREEN',
           timeout: minutesToMillis(5)
         };
-      }
-      return this.currentTick;
+      case 'RED':
+        return {
+          color: 'RED',
+          timeout: minutesToMillis(5)
+        };
+    }
+  };
+
+  const nextTickFor = (currentTick) => {
+    switch(currentTick.color) {
+      case 'YELLOW':
+        return tickFor('RED');
+      case 'GREEN':
+        return tickFor('YELLOW');
+      case 'RED':
+        return tickFor('GREEN');
+    }
+  };
+
+  return {
+    currentTick: tickFor(initialColor),
+    tick: function() {
+      return this.currentTick = nextTickFor(this.currentTick);
     }
   };
 };
