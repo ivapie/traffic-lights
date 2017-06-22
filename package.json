@@ -1,0 +1,14 @@
+{
+  "name": "traffic-lights",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "node start.js",
+    "test": "mocha"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "4.0.2",
+    "mocha": "3.4.2",
+    "sinon": "2.3.5"
+  }
+}
