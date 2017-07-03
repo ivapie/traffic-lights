@@ -36,6 +36,9 @@ module.exports = function lightColorStartingWith(initialColor) {
     currentTick: tickFor(initialColor),
     tick: function() {
       return this.currentTick = nextTickFor(this.currentTick);
+    },
+    forceTickTo: function(color) {
+      this.currentTick = tickFor(color);
     }
   };
 };

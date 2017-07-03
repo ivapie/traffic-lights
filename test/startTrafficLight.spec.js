@@ -63,5 +63,24 @@ describe('startTrafficLight', () => {
     clock.tick(THIRTY_SECONDS_IN_MILLISECONDS);
     expect(lightColorTicker.currentTick.color).to.equal('RED');
 
+    clock.restore();
+  });
+
+  it('notify listeners when light color changes', () => {
+    const lightColorTicker = lightColorStartingWith('RED');
+    const clock = sinon.useFakeTimers();
+    const handleOnTickSpy = sinon.spy();
+
+    const startedTrafficLight = startTrafficLightWith(lightColorTicker);
+    startedTrafficLight.on('tick', handleOnTickSpy);
+
+    clock.tick(FIVE_MINUTES_IN_MILLISECONDS = 1000 * 60 * 5);
+
+    expect(handleOnTickSpy).to.have.been.calledWith({
+      color: 'GREEN',
+      timeout: 300000
+    });
+
+    clock.restore();
   });
 });
