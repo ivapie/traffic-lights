@@ -1,67 +1,49 @@
 const expect = require('chai').expect;
 const lightColorStartingWith = require('../src/core/lightColor');
-const synchronizeVerticalTickFor = require('../src/core/synchronizeVerticalTick');
+const synchronizeTicksFor = require('../src/core/synchronizeTicks');
 
-describe('synchronizeVerticalTick', () => {
-  it('synchronize the YELLOW color between lights', () => {
-    const lightBeingChangedTo = { light: lightColorStartingWith('YELLOW') };
-    const lightToSynchronize = { light: lightColorStartingWith('GREEN') };
+describe('synchronizeTicks', () => {
+  it('synchronize the YELLOW color tick between given lights', () => {
+    const registeredLightBeingChangedTo = { light: lightColorStartingWith('YELLOW') };
+    const registeredLightToSynchronize = { light: lightColorStartingWith('GREEN') };
     const tickToYellow = { color: 'YELLOW' };
+    const registeredLights = [registeredLightBeingChangedTo, registeredLightToSynchronize];
 
-    const registeredVerticalLights = [
-      lightBeingChangedTo,
-      lightToSynchronize
-    ];
-    synchronizeVerticalTickFor(
-      lightBeingChangedTo,
-      registeredVerticalLights
-    )(tickToYellow);
-    expect(lightToSynchronize.light.currentTick.color).to.equal('YELLOW');
+    synchronizeTicksFor(registeredLights)(tickToYellow);
+
+    expect(registeredLightToSynchronize.light.currentTick.color).to.equal('YELLOW');
   });
 
-  it('synchronize the YELLOW color between lights for inverted registration', () => {
-    const lightBeingChangedTo = { light: lightColorStartingWith('YELLOW') };
-    const lightToSynchronize = { light: lightColorStartingWith('GREEN') };
+  it('synchronize the YELLOW color tick between given lights when registered in the inverse order', () => {
+    const registeredLightBeingChangedTo = { light: lightColorStartingWith('YELLOW') };
+    const registeredLightToSynchronize = { light: lightColorStartingWith('GREEN') };
     const tickToYellow = { color: 'YELLOW' };
+    const invertedRegisteredLights = [registeredLightToSynchronize, registeredLightBeingChangedTo];
 
-    const invertedVerticalLightsRegistration = [
-      lightToSynchronize,
-      lightBeingChangedTo
-    ];
-    synchronizeVerticalTickFor(
-      lightBeingChangedTo,
-      invertedVerticalLightsRegistration
-    )(tickToYellow);
-    expect(lightToSynchronize.light.currentTick.color).to.equal('YELLOW');
+    synchronizeTicksFor(invertedRegisteredLights)(tickToYellow);
+
+    expect(registeredLightToSynchronize.light.currentTick.color).to.equal('YELLOW');
   });
 
-  it('synchronize the GREEN color between lights', () => {
-    const lightBeingChangedTo = { light: lightColorStartingWith('GREEN') };
-    const lightToSynchronize = { light: lightColorStartingWith('RED') };
+  it('synchronize the GREEN color tick between given lights', () => {
+    const registeredLightBeingChangedTo = { light: lightColorStartingWith('GREEN') };
+    const registeredLightToSynchronize = { light: lightColorStartingWith('RED') };
     const tickToGreen = { color: 'GREEN' };
-    const registeredVerticalLights = [
-      lightBeingChangedTo,
-      lightToSynchronize
-    ];
-    synchronizeVerticalTickFor(
-      lightBeingChangedTo,
-      registeredVerticalLights
-    )(tickToGreen);
-    expect(lightToSynchronize.light.currentTick.color).to.equal('GREEN');
+    const registeredLights = [registeredLightBeingChangedTo, registeredLightToSynchronize];
+
+    synchronizeTicksFor(registeredLights)(tickToGreen);
+
+    expect(registeredLightToSynchronize.light.currentTick.color).to.equal('GREEN');
   });
 
-  it('synchronize the GREEN color between lights for inverted registration', () => {
-    const lightBeingChangedTo = { light: lightColorStartingWith('GREEN') };
-    const lightToSynchronize = { light: lightColorStartingWith('RED') };
+  it('synchronize the GREEN color tick between given lights when registered in the inverse order', () => {
+    const registeredLightBeingChangedTo = { light: lightColorStartingWith('GREEN') };
+    const registeredLightToSynchronize = { light: lightColorStartingWith('RED') };
     const tickToGreen = { color: 'GREEN' };
-    const invertedVerticalLightsRegistration = [
-      lightToSynchronize,
-      lightBeingChangedTo
-    ];
-    synchronizeVerticalTickFor(
-      lightBeingChangedTo,
-      invertedVerticalLightsRegistration
-    )(tickToGreen);
-    expect(lightToSynchronize.light.currentTick.color).to.equal('GREEN');
+    const invertedRegisteredLights = [registeredLightToSynchronize, registeredLightBeingChangedTo];
+
+    synchronizeTicksFor(invertedRegisteredLights)(tickToGreen);
+
+    expect(registeredLightToSynchronize.light.currentTick.color).to.equal('GREEN');
   });
 });

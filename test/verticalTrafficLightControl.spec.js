@@ -6,7 +6,7 @@ const minutesToMillis = require('../src/core/minutesToMillis');
 const expect = chai.expect;
 chai.use(require('sinon-chai'));
 
-const synchronizeVerticalTickFor = require('../src/core/synchronizeVerticalTick');
+const synchronizeTicksFor = require('../src/core/synchronizeTicks');
 const initializeVerticalTrafficLightControl = (startTrafficLightWith) => {
   const registeredVerticalLights = [];
 
@@ -31,7 +31,7 @@ const initializeVerticalTrafficLightControl = (startTrafficLightWith) => {
           }
           lightRegistration.started = true;
           startTrafficLightWith(lightRegistration.light)
-            .on('tick', synchronizeVerticalTickFor(lightRegistration, verticalLights));
+            .on('tick', synchronizeTicksFor(verticalLights));
         });
       };
       activate(registeredVerticalLights);
