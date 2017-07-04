@@ -6,7 +6,6 @@ const minutesToMillis = require('../src/core/minutesToMillis');
 const expect = chai.expect;
 chai.use(require('sinon-chai'));
 
-const synchronizeTicksFor = require('../src/core/synchronizeTicks');
 const activateSynchronizedTrafficControl = require('../src/core/activateSynchronizedTrafficControl');
 const initializeHorizontalTrafficLightControl = (startTrafficLight) => {
   const registeredLights = [];
