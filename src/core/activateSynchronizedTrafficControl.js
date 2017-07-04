@@ -1,12 +1,12 @@
 const synchronizeTicksFor = require('./synchronizeTicks');
 
 module.exports = (registeredLights, startTrafficLightWith) => {
-  registeredLights.forEach((lightRegistration) => {
-    if (lightRegistration.started) {
+  registeredLights.forEach((registeredLight) => {
+    if (registeredLight.started) {
       return;
     }
-    lightRegistration.started = true;
-    startTrafficLightWith(lightRegistration.light)
+    registeredLight.started = true;
+    startTrafficLightWith(registeredLight.lightColorTicker)
       .on('tick', synchronizeTicksFor(registeredLights));
   });
 };

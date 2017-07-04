@@ -14,13 +14,13 @@ const initializeHorizontalTrafficLightControl = (startTrafficLight) => {
     addWest: (westLightColorTicker) => {
       registeredLights.push({
         started: false,
-        light: westLightColorTicker
+        lightColorTicker: westLightColorTicker
       });
     },
     addEast: (eastLightColorTicker) => {
       registeredLights.push({
         started: false,
-        light: eastLightColorTicker
+        lightColorTicker: eastLightColorTicker
       });
     },
     activate: () => {

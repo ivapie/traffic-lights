@@ -13,13 +13,13 @@ const initializeVerticalTrafficLightControl = (startTrafficLight) => {
     addNorth: (northLightColorTicker) => {
       registeredLights.push({
         started: false,
-        light: northLightColorTicker
+        lightColorTicker: northLightColorTicker
       });
     },
     addSouth: (southLightColorTicker) => {
       registeredLights.push({
         started: false,
-        light: southLightColorTicker
+        lightColorTicker: southLightColorTicker
       });
     },
     activate: () => {
