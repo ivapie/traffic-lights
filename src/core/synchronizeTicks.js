@@ -1,5 +1,7 @@
 module.exports = (registeredLights) => (tickedLightBeingChanged) => {
-  registeredLights.forEach((registeredLight) => {
-    registeredLight.lightColorTicker.forceTickTo(tickedLightBeingChanged.color);
-  });
+  registeredLights
+    .map((registeredLight) => registeredLight.lightColorTicker)
+    .forEach((registeredLightColorTicker) => {
+      registeredLightColorTicker.forceTickTo(tickedLightBeingChanged.color);
+    });
 };
