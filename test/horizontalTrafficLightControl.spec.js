@@ -7,34 +7,24 @@ const expect = chai.expect;
 chai.use(require('sinon-chai'));
 
 const synchronizeTicksFor = require('../src/core/synchronizeTicks');
-const initializeHorizontalTrafficLightControl = (startTrafficLightWith) => {
+const activateSynchronizedTrafficControl = require('../src/core/activateSynchronizedTrafficControl');
+const initializeHorizontalTrafficLightControl = (startTrafficLight) => {
   const registeredLights = [];
-
   return {
-    addWest: (northLight) => {
+    addWest: (westLightColorTicker) => {
       registeredLights.push({
         started: false,
-        light: northLight
+        light: westLightColorTicker
       });
     },
-    addEast: (southLight) => {
+    addEast: (eastLightColorTicker) => {
       registeredLights.push({
         started: false,
-        light: southLight
+        light: eastLightColorTicker
       });
     },
     activate: () => {
-      const activate = (registeredLights) => {
-        registeredLights.forEach((lightRegistration) => {
-          if (lightRegistration.started) {
-            return;
-          }
-          lightRegistration.started = true;
-          startTrafficLightWith(lightRegistration.light)
-            .on('tick', synchronizeTicksFor(registeredLights));
-        });
-      };
-      activate(registeredLights);
+      activateSynchronizedTrafficControl(registeredLights, startTrafficLight);
     }
   };
 };
