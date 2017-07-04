@@ -1,7 +1,7 @@
 const chai = require('chai');
 const sinon = require('sinon');
 const lightColorStartingWith = require('../src/core/lightColor');
-const minutesToMillis = require('../src/core/minutesToMillis');
+const minutes = require('../src/core/minutesToMillis');
 
 const expect = chai.expect;
 chai.use(require('sinon-chai'));
@@ -42,7 +42,7 @@ describe('horizontalTrafficLightControl', () => {
   it('consistently switches west light to the same color whenever east light changes', () => {
     const eastLightColorTicker = lightColorStartingWith('YELLOW');
     const westLightColorTicker = lightColorStartingWith('YELLOW');
-    const FIFTEEN_SECONDS = minutesToMillis(.25);
+    const FIFTEEN_SECONDS = minutes(1/4);
     const clock = sinon.useFakeTimers();
 
     const horizontalTrafficLightControl = initializeHorizontalTrafficLightControl(require('../src/core/startTrafficLight'));

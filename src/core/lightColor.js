@@ -1,4 +1,4 @@
-const minutesToMillis = require('./minutesToMillis');
+const minutes = require('./minutesToMillis');
 
 module.exports = function lightColorStartingWith(initialColor) {
   const tickFor = (color) => {
@@ -6,17 +6,17 @@ module.exports = function lightColorStartingWith(initialColor) {
       case 'YELLOW':
         return {
           color: 'YELLOW',
-          timeout: minutesToMillis(.5)
+          timeout: minutes(1/2)
         };
       case 'GREEN':
         return {
           color: 'GREEN',
-          timeout: minutesToMillis(5)
+          timeout: minutes(5)
         };
       case 'RED':
         return {
           color: 'RED',
-          timeout: minutesToMillis(5)
+          timeout: minutes(5)
         };
     }
   };
